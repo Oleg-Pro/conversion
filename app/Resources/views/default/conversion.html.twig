@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<div id="wrapper">
+    <div id="container">
+        <div>
+            <a class="btn btn-sm btn-white" href="{{ path('clients') }}">
+                Clients
+            </a>
+        </div>
+        <form action="{{ path('conversion') }}" method="get" id="create-form" class="form-horizontal">
+            <div>
+                <label for="period" class="required">Period</label>
+                <input type="number" id="period" name="period" min="1" max="10000" required="required">
+                <input type="submit" nama="Submit">
+            </div>
+       </form>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Period</th>
+                <th>Registered</th>
+                <th>All</th>
+                <th>Conversion</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for info in conversionInfo %}
+                <tr>
+                    <td>{{ info.period }}</td>
+                    <td>{{ info.registered_clients_number }}</td>
+                    <td>{{ info.clients_number }}</td>
+                    <td>{{ info.conversion }}%</td>
+                <tr/>
+            {% else %}
+                <tr>
+                    <td colspan="4">
+                        No info
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+{% endblock %}
+
+

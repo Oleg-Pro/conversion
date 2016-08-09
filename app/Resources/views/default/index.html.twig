@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div id="wrapper">
+        <div id="container">
+            <div>
+                <a class="btn btn-sm btn-white" href="{{ path('conversion') }}">
+                    Conversion
+                </a>
+            </div>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Surname</th>
+                    <th>Phone</th>
+                    <th>Status</th>
+                    <th>Datetime</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for client in clients %}
+                    <tr>
+                        <td>{{ client.name }}</td>
+                        <td>{{ client.surname }}</td>
+                        <td>{{ client.phone }}</td>
+                        <td>{{ client.status }}</td>
+                        <td>{{ client.datetime |date('Y-m-d H:m') }}</td>
+                        <td>
+                            <a class="btn btn-sm btn-white" href="{{ path('client_update', {'id': client.id}) }}">
+                                Edit
+                            </a>
+                            <a class="btn btn-confirm-delete btn-sm btn-white" href="{{ path('client_delete', {'id': client.id}) }}">
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="6">
+                            No clients
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="title-action">
+                <a class="btn btn-primary btn-sm" href="{{ path('client_create') }}">
+                    <i class="fa fa-plus"></i> Add client
+                </a>
+            </div>
+
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(function () {
+            $(".btn-confirm-delete").on('click', function () {
+                return confirm('Delete client?');
+            });
+        });
+    </script>
+
+{% endblock %}
+
+
